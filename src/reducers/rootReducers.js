@@ -8,7 +8,17 @@ const initialState = {
 		{
 			id: 2,
 			description: "Sample Task 2",
+			isDone: false,
+		},
+		{
+			id: 3,
+			description: "Sample Task 3",
 			isDone: true,
+		},
+		{
+			id: 4,
+			description: "Sample Task 4",
+			isDone: false,
 		},
 		// ...other tasks
 	],
