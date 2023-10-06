@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import Task from "./Task";
 
 function TaskList({ tasks, completeTask, deleteTask, editTask }) {
+	// State to track if completed tasks should be shown
 	const [showCompleted, setShowCompleted] = useState(false);
+	// State to track if not completed tasks should be shown
 	const [showNotCompleted, setShowNotCompleted] = useState(false);
 
 	let filteredTasks;

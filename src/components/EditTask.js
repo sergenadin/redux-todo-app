@@ -4,9 +4,6 @@ function EditTask({ task, onSave }) {
 	const [editedText, setEditedText] = useState(task.description);
 
 	const handleSave = () => {
-		// You can access the attributes like task.id, task.description, task.isDone
-		// For example, you can use task.id to identify the task being edited
-
 		// Call the onSave callback with the updated text
 		onSave(editedText);
 	};

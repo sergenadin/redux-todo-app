@@ -1,5 +1,6 @@
 const initialState = {
 	tasks: [
+		// Sample tasks with id, description, and isDone properties
 		{
 			id: 1,
 			description: "Sample Task 1",
@@ -24,12 +25,14 @@ const initialState = {
 	],
 };
 
+// Function to calculate the next available task ID
 function nextTodoId(tasks) {
+	// Handle the case when tasks is not an array or is empty
 	if (!Array.isArray(tasks) || tasks.length === 0) {
-		// Handle the case when tasks is not an array or is empty
-		return 1; // You might start with ID 1 in this case, for example
+		return 1; // Start with ID 1
 	}
 
+	// Find the maximum ID in the current tasks
 	const maxId = tasks.reduce((maxId, task) => Math.max(task.id, maxId), -1);
 	return maxId + 1;
 }
@@ -37,16 +40,14 @@ function nextTodoId(tasks) {
 const rootReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "ADD_TASK":
-			console.log("Tasks before adding:", state.tasks); // For looking the difference between objects
+			console.log("Tasks before adding:", state.tasks);
 			return {
 				...state,
-				// but has a new array for the `tasks` field
+				// Create a new tasks array with the added task
 				tasks: [
-					// with all of the old tasks
 					...state.tasks,
-					// and the new tasks object
 					{
-						// Use an auto-incrementing numeric ID for this example
+						// Generate a new auto-incremented ID
 						id: nextTodoId(state.tasks),
 						description: action.payload.description.description,
 						isDone: false,
@@ -56,10 +57,9 @@ const rootReducer = (state = initialState, action) => {
 
 		case "COMPLETE_TASK":
 			const taskIdToComplete = action.payload;
+			// Map through tasks and toggle the isDone status of the specified task
 			const updatedTasks = state.tasks.map((task) =>
-				task.id === taskIdToComplete
-					? { ...task, isDone: !task.isDone } // Toggle the isDone status
-					: task
+				task.id === taskIdToComplete ? { ...task, isDone: !task.isDone } : task
 			);
 			return {
 				...state,
@@ -68,6 +68,7 @@ const rootReducer = (state = initialState, action) => {
 
 		case "DELETE_TASK":
 			const taskIdToDelete = action.payload;
+			// Filter out the task with the specified ID to delete it
 			const filteredTasks = state.tasks.filter(
 				(task) => task.id !== taskIdToDelete
 			);
@@ -75,19 +76,16 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				tasks: filteredTasks,
 			};
-		// reducers/rootReducer.js
-		// ... (other parts of the reducer)
 
 		case "EDIT_TASK":
 			console.log("edit task:", state.tasks);
 			const editedTasks = [...state.tasks];
-			//console.log("Tasks before adding:", action.payload.newText);
-			//onsole.log("test ", editedTasks[action.payload.index].description);
-
+			// Update the task with the new text
 			editedTasks[action.payload.index] = action.payload.newText;
 			return {
 				...state,
 			};
+
 		default:
 			return state;
 	}

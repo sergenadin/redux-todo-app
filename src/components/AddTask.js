@@ -3,18 +3,22 @@ import { connect } from "react-redux";
 import { addTask } from "../actions/actions";
 
 function AddTask({ addTask }) {
+	// State to manage the task description input
 	const [task, setTask] = useState({
 		description: "",
 	});
 
+	// Function to handle form submission
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (task.description.trim()) {
+			// Dispatch the addTask action with the task description
 			addTask({
 				description: task.description,
 			});
+			// Clear the description field after adding
 			setTask({
-				description: "", // Clear the description field
+				description: "",
 			});
 		}
 	};
